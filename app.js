@@ -1,17 +1,15 @@
 /**
- * 🎯 APP.JS - BẢN FIX CHỐNG ĐẠN CHO ĐẶC VỤ CICADA
- * Sửa triệt để lỗi không bấm được sao và lỗi nghẽn đường truyền Supabase.
+ * 🎯 APP.JS - BẢN FIX TOÀN DIỆN CHO THCS TÂN DÂN
  */
 
-// 1. CẤU HÌNH SUPABASE (Nhớ bỏ cái đuôi /rest/v1/ đi nha con trai!)
-// Thay đúng ID dự án của con vào chỗ 'ymqajrhnallaphkhubcnl' nếu không phải mã này
-const SUPABASE_URL = "https://ymqojrhnllaphkuhbcml.supabase.co/rest/v1/"; 
-const SUPABASE_ANON_KEY ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InltcW9qcmhubGxhcGhrdWhiY21sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNjE4MzIsImV4cCI6MjA5NDgzNzgzMn0.q9C7cviN2cFt-0zwtqkV44ieewVp0wuNmLaxvBJ438c"; // Dán cái mã Anon Key thật của con vào đây
+// SƯ PHỤ ĐÃ FIX BỎ CÁI ĐUÔI /rest/v1/ CHO CON RỒI NHÉ!
+const SUPABASE_URL = "https://ymqajrhnallaphkhubcnl.supabase.co"; 
+// CON NHỚ ĐỔI CÁI CHUỖI DƯỚI THÀNH THÀNH KEY THẬT CỦA CON NHA!
+const SUPABASE_ANON_KEY = "eyJhY2ciOiI1... (Dán nguyên cái key dài ngoằng của con vào đây)"; 
 
 // Khởi tạo Supabase
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Các phần tử giao diện
 const teacherSelect = document.getElementById("teacherSelect");
 const submitBtn = document.getElementById("submitBtn");
 const reviewComment = document.getElementById("reviewComment");
@@ -20,7 +18,7 @@ const statsContainer = document.getElementById("statsContainer");
 
 let currentRating = 0;
 
-// 2. SỬA LỖI BẤM SAO: Logics đổi màu chuẩn cho Tailwind
+// XỬ LÝ CLICK SAO VÀ ĐỔI MÀU TRỰC TIẾP (Bao mượt, không sợ lỗi font)
 document.querySelectorAll(".star").forEach(star => {
     star.addEventListener("click", (e) => {
         currentRating = parseInt(e.target.getAttribute("data-value"));
@@ -32,30 +30,28 @@ function updateStars(rating) {
     document.querySelectorAll(".star").forEach(star => {
         const val = parseInt(star.getAttribute("data-value"));
         if (val <= rating) {
-            // Đổi sang màu vàng rực rỡ
-            star.style.color = "#facc15"; 
+            star.style.color = "#facc15"; // Màu vàng rực
         } else {
-            // Trả về màu xám tối
-            star.style.color = "#4b5563"; 
+            star.style.color = "#4b5563"; // Màu xám tối
         }
     });
 }
 
-// 3. LOGIC GỬI ĐÁNH GIÁ LÊN DATABASE
+// THUẬT TOÁN GỬI DỮ LIỆU
 submitBtn.addEventListener("click", async () => {
     const teacherName = teacherSelect.value;
     const commentText = reviewComment.value.trim();
 
     if (!teacherName) {
-        alert("🚨 Con chưa chọn giáo viên trong danh sách kìa!");
+        alert("🚨 Con chưa chọn giáo viên kìa!");
         return;
     }
     if (currentRating === 0) {
-        alert("🚨 Chọn số sao đánh giá đi con trai ơi!");
+        alert("🚨 Hãy bấm chọn số sao (từ 1 đến 5 sao) đã con trai!");
         return;
     }
     if (!commentText) {
-        alert("🚨 Hãy viết vài lời review ẩn danh đã nhé!");
+        alert("🚨 Viết vài chữ bình luận đã rồi hãy gửi!");
         return;
     }
 
@@ -80,25 +76,24 @@ submitBtn.addEventListener("click", async () => {
         currentRating = 0;
         updateStars(0);
         
-        // Tải lại bảng điểm và bình luận mới nhất
         await loadReviewsAndStats();
 
     } catch (error) {
-        console.error("Lỗi gửi data:", error);
-        alert("🚨 Lỗi rồi! Con đã tạo bảng 'teacher_reviews' và TẮT RLS trên Supabase chưa? Chi tiết: " + error.message);
+        console.error("Lỗi gửi:", error);
+        alert("🚨 Lỗi rồi con ơi! Kiểm tra xem đã tạo bảng 'teacher_reviews' và Disable RLS trên Supabase chưa nhé. Chi tiết: " + error.message);
     } finally {
         submitBtn.disabled = false;
         submitBtn.innerText = "Gửi Đánh Giá Ẩn Danh";
     }
 });
 
-// 4. TẢI DỮ LIỆU CÔNG KHAI
+// THUẬT TOÁN LOAD DATA CÔNG KHAI
 async function loadReviewsAndStats() {
     try {
         const { data: reviews, error } = await supabase
             .from('teacher_reviews')
             .select('*')
-            .order('id', { ascending: false }); // Sắp xếp theo ID mới nhất
+            .order('id', { ascending: false });
 
         if (error) throw error;
 
@@ -124,14 +119,14 @@ async function loadReviewsAndStats() {
         for (const [name, info] of Object.entries(stats)) {
             const avg = (info.totalRating / info.count).toFixed(1);
             statsContainer.innerHTML += `
-                <div class="bg-gray-800 p-3 rounded-lg border border-gray-700 flex justify-between items-center mb-2">
+                <div class="bg-gray-800 p-3 rounded-lg border border-gray-700 flex justify-between items-center mb-2 animate-fade-in">
                     <span class="font-bold text-gray-200">${name}</span>
                     <span class="bg-yellow-500 text-gray-900 px-2 py-1 rounded text-sm font-black">⭐ ${avg} (${info.count} lượt)</span>
                 </div>
             `;
         }
 
-        // Vẽ luồng bình luận
+        // Vẽ danh sách bình luận
         reviews.forEach(r => {
             reviewsContainer.innerHTML += `
                 <div class="bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-lg mb-3">
@@ -146,9 +141,8 @@ async function loadReviewsAndStats() {
         });
 
     } catch (error) {
-        console.error("Lỗi tải dữ liệu:", error);
+        console.error("Lỗi tải:", error);
     }
 }
 
-// Tự động chạy khi mở trang
 window.addEventListener("DOMContentLoaded", loadReviewsAndStats);

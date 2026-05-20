@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Đánh Giá Giáo Viên Ẩn Danh - Cicada 3008</title>
+    <title>Rating GIÁO VIÊN - THCS Tân Dân</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -12,9 +12,9 @@
     <div class="max-w-4xl mx-auto space-y-8">
         <header class="text-center space-y-2">
             <h1 class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 tracking-wider">
-                 Rating GIÁO VIÊN 
+                Rating GIÁO VIÊN
             </h1>
-            <p class="text-sm md:text-base text-gray-400 font-mono">Hệ thống bảo mật tối cao bởi skidibidopdopyes8a1</p>
+            <p class="text-sm text-gray-400 font-mono">Hệ thống bảo mật tối cao bởi Đặc vụ Cicada 3008</p>
         </header>
 
         <main class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -23,27 +23,25 @@
                 
                 <div class="space-y-1">
                     <label class="text-xs text-gray-400 font-semibold">Chọn Thầy/Cô:</label>
-                    <select id="teacherSelect" class="w-full bg-gray-850 border border-gray-700 rounded-xl p-2.5 text-sm text-gray-200 focus:outline-none focus:border-purple-500">
-    <option value="" disabled selected>-- Chọn Giáo Viên Trong Trường --</option>
-    
-                    <option value="Cô Lan Hiệu trưởng">Cô Lan (Hiệu trưởng) 👑</option>
-                    <option value="Thầy Toàn Hiệu phó">Thầy Toàn (Hiệu phó) 🏛️</option>
-                    <option value="Cô Hải Thư viện">Cô Hải (Thư viện) 📚</option>
-    
-                    <option value="Cô Vẻ">Cô Vẻ ✨</option>
-                    <option value="Cô Tính">Cô Tính 📝</option>
-                    <option value="Cô Mạc Huyền">Cô Mạc Huyền 🔮</option>
-                    <option value="Cô Hiệp">Cô Hiệp 🛡️</option>
-                    <option value="Cô Hà Loan">Cô Hà Loan 🌸</option>
-                    <option value="Cô Ngân">Cô Ngân 💰</option>
-                    <option value="Thầy Toan">Thầy Toan 📐</option>
-                    <option value="Thầy Tuân">Thầy Tuân 🚀</option>
+                    <select id="teacherSelect" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-2.5 text-sm text-gray-200 focus:outline-none focus:border-purple-500">
+                        <option value="" disabled selected>-- Chọn Giáo Viên --</option>
+                        <option value="Cô Lan Hiệu trưởng">Cô Lan (Hiệu trưởng) 👑</option>
+                        <option value="Thầy Toàn Hiệu phó">Thầy Toàn (Hiệu phó) 🏛️</option>
+                        <option value="Cô Hải Thư viện">Cô Hải (Thư viện) 📚</option>
+                        <option value="Cô Vẻ">Cô Vẻ ✨</option>
+                        <option value="Cô Tính">Cô Tính 📝</option>
+                        <option value="Cô Mạc Huyền">Cô Mạc Huyền 🔮</option>
+                        <option value="Cô Hiệp">Cô Hiệp 🛡️</option>
+                        <option value="Cô Hà Loan">Cô Hà Loan 🌸</option>
+                        <option value="Cô Ngân">Cô Ngân 💰</option>
+                        <option value="Thầy Toan">Thầy Toan 📐</option>
+                        <option value="Thầy Tuân">Thầy Tuân 🚀</option>
                     </select>
                 </div>
 
                 <div class="space-y-1">
                     <label class="text-xs text-gray-400 font-semibold">Đánh giá tổng quan:</label>
-                    <div id="ratingStars" class="flex gap-2 text-2xl cursor-pointer py-1">
+                    <div id="ratingStars" class="flex gap-2 text-3xl cursor-pointer py-1select-none">
                         <span class="star text-gray-600 transition-colors duration-200" data-value="1">★</span>
                         <span class="star text-gray-600 transition-colors duration-200" data-value="2">★</span>
                         <span class="star text-gray-600 transition-colors duration-200" data-value="3">★</span>
@@ -54,7 +52,7 @@
 
                 <div class="space-y-1">
                     <label class="text-xs text-gray-400 font-semibold">Lời review ẩn danh:</label>
-                    <textarea id="reviewComment" rows="4" placeholder="Nhập văn từ tế, không thô tục nha con trai..." class="w-full bg-gray-850 border border-gray-700 rounded-xl p-2.5 text-sm text-gray-200 focus:outline-none focus:border-purple-500 resize-none"></textarea>
+                    <textarea id="reviewComment" rows="4" placeholder="Top 1 server THCS Tân Dân..." class="w-full bg-gray-800 border border-gray-700 rounded-xl p-2.5 text-sm text-gray-200 focus:outline-none focus:border-purple-500 resize-none"></textarea>
                 </div>
 
                 <button id="submitBtn" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-lg shadow-purple-500/20 cursor-pointer">
