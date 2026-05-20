@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rating GIÁO VIÊN - THCS Tân Dân</title>
+    <title>Rating GIÁO VIÊN V2 - THCS Tân Dân</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.43.4/dist/umd/supabase.js"></script>
 </head>
 <body class="bg-gray-950 text-gray-100 font-sans min-h-screen p-4 md:p-8">
 
-    <div class="max-w-4xl mx-auto space-y-8">
+    <div class="max-w-5xl mx-auto space-y-8">
         <header class="text-center space-y-2">
-            <h1 class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 tracking-wider">
-                Rating GIÁO VIÊN
+            <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 tracking-wider animate-pulse">
+                Rating GIÁO VIÊN V2
             </h1>
-            <p class="text-sm text-gray-400 font-mono">Hệ thống bảo mật tối cao bởi Đặc vụ Cicada 3008</p>
+            <p class="text-sm text-gray-400 font-mono">Hệ thống Thang điểm 10★ & Tùy chọn Danh tính - THCS Tân Dân</p>
         </header>
 
         <main class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <section class="md:col-span-1 bg-gray-900 p-5 rounded-2xl border border-gray-800 shadow-2xl h-fit space-y-4">
-                <h2 class="text-lg font-bold text-purple-400 flex items-center gap-2">✍️ Viết Đánh Giá</h2>
+            <section class="md:col-span-1 bg-gray-900 p-6 rounded-2xl border border-gray-800 shadow-2xl h-fit space-y-5">
+                <h2 class="text-xl font-bold text-orange-400 flex items-center gap-2">✍️ Viết Đánh Giá</h2>
                 
                 <div class="space-y-1">
                     <label class="text-xs text-gray-400 font-semibold">Chọn Thầy/Cô:</label>
-                    <select id="teacherSelect" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-2.5 text-sm text-gray-200 focus:outline-none focus:border-purple-500">
+                    <select id="teacherSelect" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm text-gray-200 focus:outline-none focus:border-orange-500 transition-colors">
                         <option value="" disabled selected>-- Chọn Giáo Viên --</option>
                         <option value="Cô Lan Hiệu trưởng">Cô Lan (Hiệu trưởng) 👑</option>
                         <option value="Thầy Toàn Hiệu phó">Thầy Toàn (Hiệu phó) 🏛️</option>
@@ -39,37 +39,66 @@
                     </select>
                 </div>
 
+                <div class="space-y-2 p-3 bg-gray-950 rounded-xl border border-gray-800">
+                    <label class="text-xs text-gray-400 font-semibold block">Chế độ danh tính:</label>
+                    <div class="flex items-center gap-4">
+                        <label class="inline-flex items-center cursor-pointer text-sm">
+                            <input type="radio" name="identityMode" value="anonymous" checked class="sr-only peer">
+                            <div class="px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-400 peer-checked:bg-orange-500/20 peer-checked:border-orange-500 peer-checked:text-orange-400 transition-all font-bold">
+                                🕵️ Ẩn danh
+                            </div>
+                        </label>
+                        <label class="inline-flex items-center cursor-pointer text-sm">
+                            <input type="radio" name="identityMode" value="public" class="sr-only peer">
+                            <div class="px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-400 peer-checked:bg-green-500/20 peer-checked:border-green-500 peer-checked:text-green-400 transition-all font-bold">
+                                 Hiện tên
+                            </div>
+                        </label>
+                    </div>
+                    <div id="nameInputWrapper" class="hidden mt-2 animate-fade-in">
+                        <input type="text" id="studentName" placeholder="Nhập tên của con... (Ví dụ: Khánh 9A)" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 text-xs text-gray-200 focus:outline-none focus:border-green-500">
+                    </div>
+                </div>
+
                 <div class="space-y-1">
-                    <label class="text-xs text-gray-400 font-semibold">Đánh giá tổng quan:</label>
-                    <div id="ratingStars" class="flex gap-2 text-3xl cursor-pointer py-1select-none">
-                        <span class="star text-gray-600 transition-colors duration-200" data-value="1">★</span>
-                        <span class="star text-gray-600 transition-colors duration-200" data-value="2">★</span>
-                        <span class="star text-gray-600 transition-colors duration-200" data-value="3">★</span>
-                        <span class="star text-gray-600 transition-colors duration-200" data-value="4">★</span>
-                        <span class="star text-gray-600 transition-colors duration-200" data-value="5">★</span>
+                    <div class="flex justify-between items-center">
+                        <label class="text-xs text-gray-400 font-semibold">Đánh giá tổng quan:</label>
+                        <span id="ratingDisplay" class="text-sm font-black text-yellow-500 font-mono bg-gray-950 px-2 py-0.5 rounded border border-gray-800">0/10★</span>
+                    </div>
+                    <div id="ratingStars" class="flex flex-wrap gap-1.5 text-2xl cursor-pointer py-2 select-none justify-center bg-gray-950 rounded-xl p-2 border border-gray-800">
+                        <span class="star text-gray-700 transition-colors duration-150 hover:scale-125" data-value="1">★</span>
+                        <span class="star text-gray-700 transition-colors duration-150 hover:scale-125" data-value="2">★</span>
+                        <span class="star text-gray-700 transition-colors duration-150 hover:scale-125" data-value="3">★</span>
+                        <span class="star text-gray-700 transition-colors duration-150 hover:scale-125" data-value="4">★</span>
+                        <span class="star text-gray-700 transition-colors duration-150 hover:scale-125" data-value="5">★</span>
+                        <span class="star text-gray-700 transition-colors duration-150 hover:scale-125" data-value="6">★</span>
+                        <span class="star text-gray-700 transition-colors duration-150 hover:scale-125" data-value="7">★</span>
+                        <span class="star text-gray-700 transition-colors duration-150 hover:scale-125" data-value="8">★</span>
+                        <span class="star text-gray-700 transition-colors duration-150 hover:scale-125" data-value="9">★</span>
+                        <span class="star text-gray-700 transition-colors duration-150 hover:scale-125" data-value="10">★</span>
                     </div>
                 </div>
 
                 <div class="space-y-1">
                     <label class="text-xs text-gray-400 font-semibold">Lời review ẩn danh:</label>
-                    <textarea id="reviewComment" rows="4" placeholder="Top 1 server THCS Tân Dân..." class="w-full bg-gray-800 border border-gray-700 rounded-xl p-2.5 text-sm text-gray-200 focus:outline-none focus:border-purple-500 resize-none"></textarea>
+                    <textarea id="reviewComment" rows="4" placeholder="Top 1 server THCS Tân Dân..." class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm text-gray-200 focus:outline-none focus:border-orange-500 resize-none transition-colors"></textarea>
                 </div>
 
-                <button id="submitBtn" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-lg shadow-purple-500/20 cursor-pointer">
-                    Gửi Đánh Giá Ẩn Danh
+                <button id="submitBtn" class="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg shadow-orange-500/20 cursor-pointer transform active:scale-95">
+                    Gửi Đánh Giá Ngay
                 </button>
             </section>
 
             <section class="md:col-span-2 space-y-6">
-                <div class="bg-gray-900 p-5 rounded-2xl border border-gray-800 shadow-2xl space-y-3">
-                    <h2 class="text-lg font-bold text-yellow-500">📊 Bảng Điểm Top giáo viên</h2>
-                    <div id="statsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800 shadow-2xl space-y-4">
+                    <h2 class="text-xl font-bold text-yellow-500 flex items-center gap-2">📊 Bảng Điểm Hệ 10 Sao</h2>
+                    <div id="statsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         </div>
                 </div>
 
-                <div class="space-y-3">
-                    <h2 class="text-lg font-bold text-pink-500">💬 Luồng Bình Luận Của Trường</h2>
-                    <div id="reviewsContainer" class="space-y-3 max-h-[500px] overflow-y-auto pr-2">
+                <div class="space-y-4">
+                    <h2 class="text-xl font-bold text-red-400 flex items-center gap-2">💬 Luồng Bình Luận Của Trường</h2>
+                    <div id="reviewsContainer" class="space-y-4 max-h-[600px] overflow-y-auto pr-2">
                         </div>
                 </div>
             </section>
