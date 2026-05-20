@@ -3,9 +3,11 @@
  */
 
 // 1. CẤU HÌNH SUPABASE CHUẨN ĐÉT (ĐÃ ĐIỀN THÔNG SỐ THẬT CỦA CON)
-const SUPABASE_URL = "https://ymqajrhnallaphkhubcnl.supabase.co"; 
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InltcW9qcmhubGxhcGhrdWhiY21sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNjE4MzIsImV4cCI6MjA5NDgzNzgzMn0.q9C7cviN2cFt-0zwtqkV44ieewVp0wuNmLaxvBJ438c"; 
+// DÒNG 6: Sửa lại chính xác ID dự án thật của con (Thay chữ a thành chữ o)
+const SUPABASE_URL = "https://ymqojrhnallaphkuhbcml.supabase.co";
 
+// DÒNG 8: Giữ nguyên cái Anon Key siêu dài của con
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InltcW9qcmhubGxhcGhrdWhiY21sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNjE4MzIsImV4cCI6MjA5NDgzNzgzMn0.q9C7cviN2cFt-0zwtqkV44ieewVp0wuNmLaxvBJ438c";
 // Khởi tạo Client bằng biến độc lập chống crash toàn cục
 const mySupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
