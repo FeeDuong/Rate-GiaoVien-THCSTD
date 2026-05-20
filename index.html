@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rating GIÁO VIÊN V2 - THCS Tân Dân</title>
+    <title>Rating GIÁO VIÊN - THCS Tân Dân</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.43.4/dist/umd/supabase.js"></script>
 </head>
 <body class="bg-gray-950 text-gray-100 font-sans min-h-screen p-4 md:p-8">
 
     <div class="max-w-5xl mx-auto space-y-8">
         <header class="text-center space-y-2">
             <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 tracking-wider">
-                Rating GIÁO VIÊN V2
+                Rating GIÁO VIÊN
             </h1>
-            <p class="text-sm text-gray-400 font-mono">Thang điểm 10★ & Tùy chọn Danh tính - THCS Tân Dân</p>
+            <p class="text-sm text-gray-400 font-mono">Hệ thống Thang điểm 10★  - THCS Tân Dân</p>
         </header>
 
         <main class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -23,7 +22,7 @@
                 
                 <div class="space-y-1">
                     <label class="text-xs text-gray-400 font-semibold">Chọn Thầy/Cô:</label>
-                    <select id="teacherSelect" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm text-gray-200 focus:outline-none focus:border-orange-500">
+                    <select id="teacherSelect" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm text-gray-200 focus:outline-none focus:border-orange-500 transition-colors">
                         <option value="" disabled selected>-- Chọn Giáo Viên --</option>
                         <option value="Cô Lan Hiệu trưởng">Cô Lan (Hiệu trưởng) 👑</option>
                         <option value="Thầy Toàn Hiệu phó">Thầy Toàn (Hiệu phó) 🏛️</option>
@@ -56,30 +55,32 @@
                         </label>
                     </div>
                     <div id="nameInputWrapper" class="hidden mt-2">
-                        <input type="text" id="studentName" placeholder="Ví dụ: Khánh 9A (Ẩn danh bỏ trống)" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 text-xs text-gray-200 focus:outline-none focus:border-green-500">
+                        <input type="text" id="studentName" placeholder="Nhập tên... (Ví dụ: Tuấn 9B)" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 text-xs text-gray-200 focus:outline-none focus:border-green-500">
+                    </div>
+                </div>
+
+                <div class="space-y-1 text-center">
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="text-xs text-gray-400 font-semibold italic">Chạm sao để chấm điểm:</label>
+                        <span id="ratingDisplay" class="text-sm font-black text-yellow-500 font-mono bg-gray-950 px-2 py-0.5 rounded border border-gray-800">0/10★</span>
+                    </div>
+                    <div id="ratingStars" class="flex flex-wrap gap-1 text-2xl cursor-pointer py-3 select-none justify-center bg-gray-950 rounded-xl p-2 border border-gray-800 shadow-inner">
+                        <span class="star" data-value="1" style="color: #374151; transition: all 0.2s; display: inline-block; padding: 0 3px;">★</span>
+                        <span class="star" data-value="2" style="color: #374151; transition: all 0.2s; display: inline-block; padding: 0 3px;">★</span>
+                        <span class="star" data-value="3" style="color: #374151; transition: all 0.2s; display: inline-block; padding: 0 3px;">★</span>
+                        <span class="star" data-value="4" style="color: #374151; transition: all 0.2s; display: inline-block; padding: 0 3px;">★</span>
+                        <span class="star" data-value="5" style="color: #374151; transition: all 0.2s; display: inline-block; padding: 0 3px;">★</span>
+                        <span class="star" data-value="6" style="color: #374151; transition: all 0.2s; display: inline-block; padding: 0 3px;">★</span>
+                        <span class="star" data-value="7" style="color: #374151; transition: all 0.2s; display: inline-block; padding: 0 3px;">★</span>
+                        <span class="star" data-value="8" style="color: #374151; transition: all 0.2s; display: inline-block; padding: 0 3px;">★</span>
+                        <span class="star" data-value="9" style="color: #374151; transition: all 0.2s; display: inline-block; padding: 0 3px;">★</span>
+                        <span class="star" data-value="10" style="color: #374151; transition: all 0.2s; display: inline-block; padding: 0 3px;">★</span>
                     </div>
                 </div>
 
                 <div class="space-y-1">
-                    <label class="text-xs text-gray-400 font-semibold">Đánh giá tổng quan (Hệ 10★):</label>
-                    <select id="ratingSelect" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm text-gray-200 focus:outline-none focus:border-orange-500">
-                        <option value="" disabled selected>-- Chọn số sao đánh giá --</option>
-                        <option value="10">⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ 10/10 - Đỉnh nóc kịch trần</option>
-                        <option value="9">⭐⭐⭐⭐⭐⭐⭐⭐⭐ 9/10 - Tuyệt vời ông mặt trời</option>
-                        <option value="8">⭐⭐⭐⭐⭐⭐⭐⭐ 8/10 - Rất uy tín</option>
-                        <option value="7">⭐⭐⭐⭐⭐⭐⭐ 7/10 - Khá ổn áp</option>
-                        <option value="6">⭐⭐⭐⭐⭐⭐ 6/10 - Ở mức trung bình</option>
-                        <option value="5">⭐⭐⭐⭐⭐ 5/10 - Bình thường</option>
-                        <option value="4">⭐⭐⭐⭐ 4/10 - Hơi yếu nha</option>
-                        <option value="3">⭐⭐⭐ 3/10 - Cần cố gắng nhiều</option>
-                        <option value="2">⭐⭐ 2/10 - Quá rén luôn</option>
-                        <option value="1">⭐ 1/10 - Sụ sụp hoàn toàn</option>
-                    </select>
-                </div>
-
-                <div class="space-y-1">
                     <label class="text-xs text-gray-400 font-semibold">Lời review của con:</label>
-                    <textarea id="reviewComment" rows="4" placeholder="Top 1 server THCS Tân Dân..." class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm text-gray-200 focus:outline-none focus:border-orange-500 resize-none"></textarea>
+                    <textarea id="reviewComment" rows="4" placeholder="Top 1 server THCS Tân Dân..." class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm text-gray-200 focus:outline-none focus:border-orange-500 resize-none transition-colors"></textarea>
                 </div>
 
                 <button id="submitBtn" class="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg shadow-orange-500/20 cursor-pointer transform active:scale-95">
