@@ -1,14 +1,14 @@
 /**
- * 🎯 APP.JS - BẢN FIX TOÀN DIỆN CHO THCS TÂN DÂN
+ * 🎯 APP.JS - BẢN FIX LỖI REDECLARATION TOÀN DIỆN CHO THCS TÂN DÂN
  */
 
-// SƯ PHỤ ĐÃ FIX BỎ CÁI ĐUÔI /rest/v1/ CHO CON RỒI NHÉ!
-const SUPABASE_URL = "https://ymqojrhnllaphkuhbcml.supabase.co/rest/v1/"; 
-// CON NHỚ ĐỔI CÁI CHUỖI DƯỚI THÀNH THÀNH KEY THẬT CỦA CON NHA!
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InltcW9qcmhubGxhcGhrdWhiY21sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNjE4MzIsImV4cCI6MjA5NDgzNzgzMn0.q9C7cviN2cFt-0zwtqkV44ieewVp0wuNmLaxvBJ438c"; 
+// 1. CẤU HÌNH SUPABASE (Đã đổi tên biến thành mySupabase để chống crash trình duyệt)
+const SUPABASE_URL = "https://ymqajrhnallaphkhubcnl.supabase.co"; 
+// NHỚ ĐIỀN CÁI KEY THẬT CỦA CON VÀO ĐÂY NHA CON TRAI!
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; 
 
-// Khởi tạo Supabase
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Khởi tạo Client bằng biến riêng biệt, không sợ đụng hàng với thư viện gốc
+const mySupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const teacherSelect = document.getElementById("teacherSelect");
 const submitBtn = document.getElementById("submitBtn");
@@ -18,7 +18,7 @@ const statsContainer = document.getElementById("statsContainer");
 
 let currentRating = 0;
 
-// XỬ LÝ CLICK SAO VÀ ĐỔI MÀU TRỰC TIẾP (Bao mượt, không sợ lỗi font)
+// 2. XỬ LÝ CLICK SAO VÀ ĐỔI MÀU TRỰC TIẾP
 document.querySelectorAll(".star").forEach(star => {
     star.addEventListener("click", (e) => {
         currentRating = parseInt(e.target.getAttribute("data-value"));
@@ -37,7 +37,7 @@ function updateStars(rating) {
     });
 }
 
-// THUẬT TOÁN GỬI DỮ LIỆU
+// 3. THUẬT TOÁN GỬI DỮ LIỆU
 submitBtn.addEventListener("click", async () => {
     const teacherName = teacherSelect.value;
     const commentText = reviewComment.value.trim();
@@ -59,7 +59,7 @@ submitBtn.addEventListener("click", async () => {
     submitBtn.innerText = "⚡ Đang gửi ẩn danh...";
 
     try {
-        const { data, error } = await supabase
+        const { data, error } = await mySupabase
             .from('teacher_reviews')
             .insert([
                 { 
@@ -80,17 +80,17 @@ submitBtn.addEventListener("click", async () => {
 
     } catch (error) {
         console.error("Lỗi gửi:", error);
-        alert("🚨 Lỗi rồi con ơi! Kiểm tra xem đã tạo bảng 'teacher_reviews' và Disable RLS trên Supabase chưa nhé. Chi tiết: " + error.message);
+        alert("🚨 Lỗi database! Con đã tạo bảng 'teacher_reviews' và Disable RLS trên Supabase chưa? Chi tiết: " + error.message);
     } finally {
         submitBtn.disabled = false;
         submitBtn.innerText = "Gửi Đánh Giá Ẩn Danh";
     }
 });
 
-// THUẬT TOÁN LOAD DATA CÔNG KHAI
+// 4. THUẬT TOÁN LOAD DATA CÔNG KHAI
 async function loadReviewsAndStats() {
     try {
-        const { data: reviews, error } = await supabase
+        const { data: reviews, error } = await mySupabase
             .from('teacher_reviews')
             .select('*')
             .order('id', { ascending: false });
@@ -119,7 +119,7 @@ async function loadReviewsAndStats() {
         for (const [name, info] of Object.entries(stats)) {
             const avg = (info.totalRating / info.count).toFixed(1);
             statsContainer.innerHTML += `
-                <div class="bg-gray-800 p-3 rounded-lg border border-gray-700 flex justify-between items-center mb-2 animate-fade-in">
+                <div class="bg-gray-800 p-3 rounded-lg border border-gray-700 flex justify-between items-center mb-2">
                     <span class="font-bold text-gray-200">${name}</span>
                     <span class="bg-yellow-500 text-gray-900 px-2 py-1 rounded text-sm font-black">⭐ ${avg} (${info.count} lượt)</span>
                 </div>
