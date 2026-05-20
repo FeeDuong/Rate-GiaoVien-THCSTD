@@ -1,13 +1,12 @@
 /**
- * 🎯 APP.JS - BẢN FIX LỖI REDECLARATION TOÀN DIỆN CHO THCS TÂN DÂN
+ * 🎯 APP.JS - BẢN FULL KẾT NỐI KEY THẬT CỦA ĐẶC VỤ CICADA
  */
 
-// 1. CẤU HÌNH SUPABASE (Đã đổi tên biến thành mySupabase để chống crash trình duyệt)
+// 1. CẤU HÌNH SUPABASE CHUẨN ĐÉT (ĐÃ ĐIỀN THÔNG SỐ THẬT CỦA CON)
 const SUPABASE_URL = "https://ymqajrhnallaphkhubcnl.supabase.co"; 
-// NHỚ ĐIỀN CÁI KEY THẬT CỦA CON VÀO ĐÂY NHA CON TRAI!
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; 
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InltcW9qcmhubGxhcGhrdWhiY21sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNjE4MzIsImV4cCI6MjA5NDgzNzgzMn0.q9C7cviN2cFt-0zwtqkV44ieewVp0wuNmLaxvBJ438c"; 
 
-// Khởi tạo Client bằng biến riêng biệt, không sợ đụng hàng với thư viện gốc
+// Khởi tạo Client bằng biến độc lập chống crash toàn cục
 const mySupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const teacherSelect = document.getElementById("teacherSelect");
@@ -37,7 +36,7 @@ function updateStars(rating) {
     });
 }
 
-// 3. THUẬT TOÁN GỬI DỮ LIỆU
+// 3. THUẬT TOÁN GỬI DỮ LIỆU LÊN MÂY
 submitBtn.addEventListener("click", async () => {
     const teacherName = teacherSelect.value;
     const commentText = reviewComment.value.trim();
@@ -80,14 +79,14 @@ submitBtn.addEventListener("click", async () => {
 
     } catch (error) {
         console.error("Lỗi gửi:", error);
-        alert("🚨 Lỗi database! Con đã tạo bảng 'teacher_reviews' và Disable RLS trên Supabase chưa? Chi tiết: " + error.message);
+        alert("🚨 Lỗi kết nối! Con đã tạo bảng 'teacher_reviews' và DISABLE RLS trên Supabase chưa? Chi tiết lỗi: " + error.message);
     } finally {
         submitBtn.disabled = false;
         submitBtn.innerText = "Gửi Đánh Giá Ẩn Danh";
     }
 });
 
-// 4. THUẬT TOÁN LOAD DATA CÔNG KHAI
+// 4. THUẬT TOÁN TẢI DỮ LIỆU VÀ TỰ ĐỘNG TÍNH ĐIỂM TRUNG BÌNH CÔNG KHAI
 async function loadReviewsAndStats() {
     try {
         const { data: reviews, error } = await mySupabase
@@ -114,7 +113,7 @@ async function loadReviewsAndStats() {
             stats[r.teacher_name].count += 1;
         });
 
-        // Vẽ bảng điểm
+        // Vẽ bảng điểm top giáo viên lên màn hình
         statsContainer.innerHTML = "";
         for (const [name, info] of Object.entries(stats)) {
             const avg = (info.totalRating / info.count).toFixed(1);
@@ -126,7 +125,7 @@ async function loadReviewsAndStats() {
             `;
         }
 
-        // Vẽ danh sách bình luận
+        // Vẽ luồng bình luận cho cả trường cùng hóng
         reviews.forEach(r => {
             reviewsContainer.innerHTML += `
                 <div class="bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-lg mb-3">
@@ -145,4 +144,5 @@ async function loadReviewsAndStats() {
     }
 }
 
+// Chạy luôn khi trang web tải xong
 window.addEventListener("DOMContentLoaded", loadReviewsAndStats);
