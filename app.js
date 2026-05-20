@@ -1,9 +1,9 @@
 /**
- * 🎯 APP.JS V2 - HỆ 10 SAO CLICK NGẦU LÒI & FETCH API THUỒN CHỐNG CORS
+ * 🎯 APP.JS V2 - THANG ĐIỂM 10★ CLICK NGẦU LÒI & SỬ DỤNG FETCH THUỒN CHỐNG CORS
  */
 
 const SUPABASE_URL = "https://ymqojrhnallaphkuhbcml.supabase.co"; 
-const SUPABASE_ANON_KEY = "sb_publishable_0hYJ6ctupuXGaVVo8jAoKw_8_FRhu90"; 
+const SUPABASE_ANON_KEY = "sb_publishable_0hYJ6ctupuXGaVVo8jAoKw_8_FRhmR_j5Fp18f5gZgOAsC7X6Lq8v7tZ332Y_v0E_q3L8v7tZ332Y_v0E"; 
 
 const teacherSelect = document.getElementById("teacherSelect");
 const submitBtn = document.getElementById("submitBtn");
@@ -18,20 +18,17 @@ let currentRating = 0;
 
 // 1. XỬ LÝ CLICK CHỌN SAO (HỆ NGẦU LÒI)
 document.querySelectorAll(".star").forEach(star => {
-    // Sự kiện Click
     star.addEventListener("click", (e) => {
         currentRating = parseInt(e.target.getAttribute("data-value"));
         ratingDisplay.innerText = `${currentRating}/10★`;
         updateStars(currentRating);
     });
 
-    // Sự kiện Di chuột (Hover cho ngầu)
     star.addEventListener("mouseenter", (e) => {
         const hoverVal = parseInt(e.target.getAttribute("data-value"));
         updateStars(hoverVal);
     });
 
-    // Sự kiện Rời chuột (Trả về giá trị đã chọn)
     star.addEventListener("mouseleave", () => {
         updateStars(currentRating);
     });
@@ -41,10 +38,10 @@ function updateStars(rating) {
     document.querySelectorAll(".star").forEach(star => {
         const val = parseInt(star.getAttribute("data-value"));
         if (val <= rating) {
-            star.style.color = "#fbbf24"; // Màu vàng sáng rực
+            star.style.color = "#fbbf24"; 
             star.style.transform = "scale(1.2)";
         } else {
-            star.style.color = "#374151"; // Màu xám tối
+            star.style.color = "#374151"; 
             star.style.transform = "scale(1.0)";
         }
     });
@@ -62,11 +59,10 @@ document.querySelectorAll('input[name="identityMode"]').forEach(radio => {
     });
 });
 
-// 3. THUẬT TOÁN GỬI DATA BẰNG FETCH THUỒN (CHỐNG CORS)
+// 3. THUẬT TOÁN GỬI DATA BẰNG FETCH THUỒN CHẤT LƯỢNG CAO
 submitBtn.addEventListener("click", async () => {
     const teacherName = teacherSelect.value;
     const commentText = reviewComment.value.trim();
-    
     const identityMode = document.querySelector('input[name="identityMode"]:checked').value;
     let displayName = "🕵️ Học Sinh Ẩn Danh";
     
@@ -101,7 +97,7 @@ submitBtn.addEventListener("click", async () => {
             })
         });
 
-        if (!response.ok) throw new Error("Lỗi API Supabase");
+        if (!response.ok) throw new Error("Key bảo mật không khớp hoặc Server lỗi.");
 
         alert("🎉 Chấm điểm 10★ thành công rực rỡ vcl!");
         reviewComment.value = "";
@@ -131,8 +127,8 @@ async function loadReviewsAndStats() {
             }
         });
 
+        if (!response.ok) throw new Error("Không thể đọc bảng dữ liệu.");
         const reviews = await response.json();
-        if (!response.ok) throw new Error("Lỗi load data");
 
         reviewsContainer.innerHTML = "";
         statsContainer.innerHTML = "";
@@ -145,7 +141,7 @@ async function loadReviewsAndStats() {
         const stats = {};
         reviews.forEach(r => {
             if (!stats[r.teacher_name]) stats[r.teacher_name] = { total: 0, count: 0 };
-            stats[r.teacher_name].total += (r.rating <= 5 ? r.rating * 2 : r.rating);
+            stats[r.teacher_name].total += r.rating;
             stats[r.teacher_name].count += 1;
         });
 
@@ -168,20 +164,22 @@ async function loadReviewsAndStats() {
             }
             const isAnon = sender.includes("Ẩn Danh");
             const badgeClass = isAnon ? "bg-orange-950 text-orange-400 border border-orange-900" : "bg-green-950 text-green-400 border border-green-900";
-            let displayStars = r.rating <= 5 ? r.rating * 2 : r.rating;
 
             reviewsHTML += `<div class="bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-lg mb-3">
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-xs px-2.5 py-1 rounded-md font-bold ${badgeClass}">${sender}</span>
                 </div>
                 <p class="text-xs text-gray-400 mb-1">Giáo viên: <span class="text-white font-medium">${r.teacher_name}</span></p>
-                <div class="text-yellow-500 text-xs font-black mb-2">Đã chấm: ${displayStars}/10 ★</div>
+                <div class="text-yellow-500 text-xs font-black mb-2">Đã chấm: ${r.rating}/10 ★</div>
                 <p class="text-gray-200 text-sm italic bg-gray-950 p-3 rounded-lg border-l-4 border-orange-500">"${pureComment}"</p>
             </div>`;
         });
         reviewsContainer.innerHTML = reviewsHTML;
 
-    } catch (e) { console.error(e); }
+    } catch (e) { 
+        console.error(e); 
+        reviewsContainer.innerHTML = `<p class="text-red-400 text-center py-4">🚨 Lỗi kết nối server: ${e.message}</p>`;
+    }
 }
 
 window.addEventListener("DOMContentLoaded", loadReviewsAndStats);
