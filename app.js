@@ -3,7 +3,7 @@
  */
 
 const SUPABASE_URL = "https://ymqojrhnallaphkuhbcml.supabase.co"; 
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InltcW9qcmhubGxhcGhrdWhiY21sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNjE4MzIsImV4cCI6MjA5NDgzNzgzMn0.q9C7cviN2cFt-0zwtqkV44ieewVp0wuNmLaxvBJ438c"; 
+const SUPABASE_ANON_KEY = "sb_publishable_0hYJ6ctupuXGaVVo8jAoKw_8_FRhu90"; 
 
 const teacherSelect = document.getElementById("teacherSelect");
 const submitBtn = document.getElementById("submitBtn");
