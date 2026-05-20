@@ -3,9 +3,9 @@
  */
 
 // SƯ PHỤ ĐÃ FIX BỎ CÁI ĐUÔI /rest/v1/ CHO CON RỒI NHÉ!
-const SUPABASE_URL = "https://ymqajrhnallaphkhubcnl.supabase.co"; 
+const SUPABASE_URL = "https://ymqojrhnllaphkuhbcml.supabase.co/rest/v1/"; 
 // CON NHỚ ĐỔI CÁI CHUỖI DƯỚI THÀNH THÀNH KEY THẬT CỦA CON NHA!
-const SUPABASE_ANON_KEY = "eyJhY2ciOiI1... (Dán nguyên cái key dài ngoằng của con vào đây)"; 
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InltcW9qcmhubGxhcGhrdWhiY21sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNjE4MzIsImV4cCI6MjA5NDgzNzgzMn0.q9C7cviN2cFt-0zwtqkV44ieewVp0wuNmLaxvBJ438c"; 
 
 // Khởi tạo Supabase
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
