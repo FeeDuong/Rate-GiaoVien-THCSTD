@@ -12,7 +12,7 @@
     <div class="max-w-5xl mx-auto space-y-8">
         <header class="text-center space-y-2">
             <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 tracking-wider animate-pulse">
-                Rating GIÁO VIÊN
+                Rating GIÁO VIÊN V2
             </h1>
             <p class="text-sm text-gray-400 font-mono">Hệ thống Thang điểm 10★ & Tùy chọn Danh tính - THCS Tân Dân</p>
         </header>
@@ -36,8 +36,6 @@
                         <option value="Cô Ngân">Cô Ngân 💰</option>
                         <option value="Thầy Toan">Thầy Toan 📐</option>
                         <option value="Thầy Tuân">Thầy Tuân 🚀</option>
-                        <option value="Cô Hiên">Cô Hiên 🌟</option>
-                        <option value="Cô Ánh">Cô Ánh 🌸</option>
                     </select>
                 </div>
 
@@ -57,7 +55,7 @@
                             </div>
                         </label>
                     </div>
-                    <div id="nameInputWrapper" class="hidden mt-2 animate-fade-in">
+                    <div id="nameInputWrapper" class="hidden mt-2">
                         <input type="text" id="studentName" placeholder="Nhập tên của con... (Ví dụ: Khánh 9A)" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 text-xs text-gray-200 focus:outline-none focus:border-green-500">
                     </div>
                 </div>
@@ -67,18 +65,18 @@
                         <label class="text-xs text-gray-400 font-semibold">Đánh giá tổng quan:</label>
                         <span id="ratingDisplay" class="text-sm font-black text-yellow-500 font-mono bg-gray-950 px-2 py-0.5 rounded border border-gray-800">0/10★</span>
                     </div>
-                    <div id="ratingStars" class="flex flex-wrap gap-1.5 text-2xl cursor-pointer py-2 select-none justify-center bg-gray-950 rounded-xl p-2 border border-gray-800">
-                        <span class="star text-gray-700" data-value="1" style="transition: all 0.15s; display: inline-block;">★</span>
-                        <span class="star text-gray-700" data-value="2" style="transition: all 0.15s; display: inline-block;">★</span>
-                        <span class="star text-gray-700" data-value="3" style="transition: all 0.15s; display: inline-block;">★</span>
-                        <span class="star text-gray-700" data-value="4" style="transition: all 0.15s; display: inline-block;">★</span>
-                        <span class="star text-gray-700" data-value="5" style="transition: all 0.15s; display: inline-block;">★</span>
-                        <span class="star text-gray-700" data-value="6" style="transition: all 0.15s; display: inline-block;">★</span>
-                        <span class="star text-gray-700" data-value="7" style="transition: all 0.15s; display: inline-block;">★</span>
-                        <span class="star text-gray-700" data-value="8" style="transition: all 0.15s; display: inline-block;">★</span>
-                        <span class="star text-gray-700" data-value="9" style="transition: all 0.15s; display: inline-block;">★</span>
-                        <span class="star text-gray-700" data-value="10" style="transition: all 0.15s; display: inline-block;">★</span>
-</div>
+                    <div id="ratingStars" class="flex flex-wrap gap-2 text-2xl cursor-pointer py-2 select-none justify-center bg-gray-950 rounded-xl p-2 border border-gray-800">
+                        <span class="star" data-value="1" style="color: #374151; transition: all 0.15s; display: inline-block; padding: 0 2px;">★</span>
+                        <span class="star" data-value="2" style="color: #374151; transition: all 0.15s; display: inline-block; padding: 0 2px;">★</span>
+                        <span class="star" data-value="3" style="color: #374151; transition: all 0.15s; display: inline-block; padding: 0 2px;">★</span>
+                        <span class="star" data-value="4" style="color: #374151; transition: all 0.15s; display: inline-block; padding: 0 2px;">★</span>
+                        <span class="star" data-value="5" style="color: #374151; transition: all 0.15s; display: inline-block; padding: 0 2px;">★</span>
+                        <span class="star" data-value="6" style="color: #374151; transition: all 0.15s; display: inline-block; padding: 0 2px;">★</span>
+                        <span class="star" data-value="7" style="color: #374151; transition: all 0.15s; display: inline-block; padding: 0 2px;">★</span>
+                        <span class="star" data-value="8" style="color: #374151; transition: all 0.15s; display: inline-block; padding: 0 2px;">★</span>
+                        <span class="star" data-value="9" style="color: #374151; transition: all 0.15s; display: inline-block; padding: 0 2px;">★</span>
+                        <span class="star" data-value="10" style="color: #374151; transition: all 0.15s; display: inline-block; padding: 0 2px;">★</span>
+                    </div>
                 </div>
 
                 <div class="space-y-1">
@@ -93,7 +91,7 @@
 
             <section class="md:col-span-2 space-y-6">
                 <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800 shadow-2xl space-y-4">
-                    <h2 class="text-xl font-bold text-yellow-500 flex items-center gap-2">📊 Bảng Điểm top Giáo Viên</h2>
+                    <h2 class="text-xl font-bold text-yellow-500 flex items-center gap-2">📊 Bảng Điểm Hệ 10 Sao</h2>
                     <div id="statsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         </div>
                 </div>
