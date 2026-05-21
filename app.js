@@ -56,13 +56,13 @@ const STUDENT_DATABASE = [
     { name: "Dương Hoàng Quân", class: "8A1" }, [cite: 3]
     { name: "Nguyễn Minh Quân (19/11)", class: "8A1" }, // Sư phụ phân biệt theo ngày sinh cho con dễ nhìn [cite: 3]
     { name: "Nguyễn Minh Quân (30/10)", class: "8A1" }, // Tránh trùng tên lộn phốt [cite: 3]
-    { name: "Đỗ Hải Thanh", class: "8A1" }, [cite: 3]
-    { name: "Bùi Anh Thư", class: "8A1" }, [cite: 3]
-    { name: "Vũ Thu Thủy", class: "8A1" }, [cite: 3]
-    { name: "Phùng Minh Trang", class: "8A1" }, [cite: 3]
-    { name: "Nguyễn Tuấn Tú", class: "8A1" }, [cite: 3]
-    { name: "Nguyễn Minh Tuấn", class: "8A1" }, [cite: 3]
-    { name: "Phùng Mạnh Tùng", class: "8A1" } [cite: 3]
+    { name: "Đỗ Hải Thanh", class: "8A1" }, // [cite: 3]
+    { name: "Bùi Anh Thư", class: "8A1" }, // [cite: 3]
+    { name: "Vũ Thu Thủy", class: "8A1" }, // [cite: 3]
+    { name: "Phùng Minh Trang", class: "8A1" }, // [cite: 3]
+    { name: "Nguyễn Tuấn Tú", class: "8A1" }, // [cite: 3]
+    { name: "Nguyễn Minh Tuấn", class: "8A1" }, // [cite: 3]
+    { name: "Phùng Mạnh Tùng", class: "8A1" } // [cite: 3]
 ];
 
 // TAB SWITCHING ELEMENTS
@@ -264,7 +264,7 @@ submitStudentBtn.addEventListener("click", async () => {
         await loadStudentReviews();
     } catch (e) {
         alert("🚨 Lỗi gửi tin học sinh: " + e.message);
-    } finaly {
+    } finally {
         submitStudentBtn.disabled = false;
         submitStudentBtn.innerText = sType === 'khen' ? "Đăng Tin Lên Bảng Vàng" : "Nổ Phốt Lên Bảng Tin";
     }
