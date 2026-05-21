@@ -3,27 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rating GIÁO VIÊN V2 - THCS Tân Dân</title>
+    <title>THCS Tân Dân - Cảm nghĩ và nhận xét</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.43.4/dist/umd/supabase.js"></script>
 </head>
 <body class="bg-gray-950 text-gray-100 font-sans min-h-screen p-4 md:p-8">
 
-    <div class="max-w-5xl mx-auto space-y-8">
+    <div class="max-w-6xl mx-auto space-y-6">
         <header class="text-center space-y-2">
-            <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 tracking-wider">
-                Rating GIÁO VIÊN V2
+            <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500 tracking-wider">
+                TÂN DÂN HUB V2
             </h1>
-            <p class="text-sm text-gray-400 font-mono">Hệ thống Thang điểm 10★ Siêu Ngầu - THCS Tân Dân</p>
+            <p class="text-sm text-gray-400 font-mono">Hệ Thống Đánh Giá & Hóng Biến Bảo Mật - by Linuxxer</p>
         </header>
 
-        <main class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="flex justify-center gap-4 bg-gray-900 p-2 rounded-2xl border border-gray-800 max-w-md mx-auto">
+            <button id="tabTeacherBtn" class="flex-1 py-2 px-4 rounded-xl font-bold text-sm transition-all cursor-pointer bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg">
+                👩‍🏫 Giáo Viên
+            </button>
+            <button id="tabStudentBtn" class="flex-1 py-2 px-4 rounded-xl font-bold text-sm transition-all cursor-pointer text-gray-400 hover:text-white">
+                🔥 Học Sinh
+            </button>
+        </div>
+
+        <main id="sectionTeacher" class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <section class="md:col-span-1 bg-gray-900 p-6 rounded-2xl border border-gray-800 shadow-2xl h-fit space-y-5">
-                <h2 class="text-xl font-bold text-orange-400 flex items-center gap-2">✍️ Viết Đánh Giá</h2>
+                <h2 class="text-xl font-bold text-purple-400 flex items-center gap-2">✍️ Đánh Giá Giáo Viên</h2>
                 
                 <div class="space-y-1">
                     <label class="text-xs text-gray-400 font-semibold">Chọn Thầy/Cô:</label>
-                    <select id="teacherSelect" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm text-gray-200 focus:outline-none focus:border-orange-500 transition-colors">
+                    <select id="teacherSelect" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm text-gray-200 focus:outline-none focus:border-purple-500 transition-colors">
                         <option value="" disabled selected>-- Chọn Giáo Viên --</option>
                         <option value="Cô Lan Hiệu trưởng">Cô Lan (Hiệu trưởng) 👑</option>
                         <option value="Thầy Toàn Hiệu phó">Thầy Toàn (Hiệu phó) 🏛️</option>
@@ -40,11 +49,11 @@
                 </div>
 
                 <div class="space-y-2 p-3 bg-gray-950 rounded-xl border border-gray-800">
-                    <label class="text-xs text-gray-400 font-semibold block">Chế độ danh tính:</label>
+                    <label class="text-xs text-gray-400 font-semibold block">Danh tính người gửi:</label>
                     <div class="flex items-center gap-4">
                         <label class="inline-flex items-center cursor-pointer text-sm">
                             <input type="radio" name="identityMode" value="anonymous" checked class="sr-only peer">
-                            <div class="px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-400 peer-checked:bg-orange-500/20 peer-checked:border-orange-500 peer-checked:text-orange-400 transition-all font-bold">
+                            <div class="px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-400 peer-checked:bg-purple-500/20 peer-checked:border-purple-500 peer-checked:text-purple-400 transition-all font-bold">
                                 🕵️ Ẩn danh
                             </div>
                         </label>
@@ -56,7 +65,7 @@
                         </label>
                     </div>
                     <div id="nameInputWrapper" class="hidden mt-2">
-                        <input type="text" id="studentName" placeholder="Nhập tên... (Ví dụ: Tuấn 9B)" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 text-xs text-gray-200 focus:outline-none focus:border-green-500">
+                        <input type="text" id="studentName" placeholder="Nhập tên... (Ví dụ: Kiên 8A1)" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 text-xs text-gray-200 focus:outline-none focus:border-green-500">
                     </div>
                 </div>
 
@@ -80,11 +89,11 @@
                 </div>
 
                 <div class="space-y-1">
-                    <label class="text-xs text-gray-400 font-semibold">Lời review của con:</label>
-                    <textarea id="reviewComment" rows="4" placeholder="Nhập nhận xét tại đây..." class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm text-gray-200 focus:outline-none focus:border-orange-500 resize-none transition-colors"></textarea>
+                    <label class="text-xs text-gray-400 font-semibold">Lời review thầy cô:</label>
+                    <textarea id="reviewComment" rows="4" placeholder="Nhập nhận xét của con..." class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm text-gray-200 focus:outline-none focus:border-purple-500 resize-none transition-colors"></textarea>
                 </div>
 
-                <button id="submitBtn" class="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg shadow-orange-500/20 cursor-pointer transform active:scale-95">
+                <button id="submitBtn" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg cursor-pointer">
                     Gửi Đánh Giá Ngay
                 </button>
             </section>
@@ -94,15 +103,76 @@
                     <h2 class="text-xl font-bold text-yellow-500 flex items-center gap-2">📊 Bảng Điểm Hệ 10 Sao</h2>
                     <div id="statsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
                 </div>
-
                 <div class="space-y-4">
-                    <h2 class="text-xl font-bold text-red-400 flex items-center gap-2">💬 Luồng Bình Luận Của Trường</h2>
-                    <div id="reviewsContainer" class="space-y-4 max-h-[600px] overflow-y-auto pr-2"></div>
+                    <h2 class="text-xl font-bold text-purple-400 flex items-center gap-2">💬 Luồng Bình Luận Giáo Viên</h2>
+                    <div id="reviewsContainer" class="space-y-4 max-h-[500px] overflow-y-auto pr-2"></div>
                 </div>
+            </section>
+        </main>
+
+
+        <main id="sectionStudent" class="grid grid-cols-1 md:grid-cols-3 gap-6 hidden">
+            <section id="studentFormCard" class="md:col-span-1 bg-gray-900 p-6 rounded-2xl border border-gray-800 shadow-2xl h-fit space-y-5 transition-all duration-300">
+                <h2 class="text-xl font-bold text-orange-400 flex items-center gap-2">📢 Đăng Tin Học Sinh</h2>
+                
+                <div class="grid grid-cols-2 gap-3 p-1.5 bg-gray-950 rounded-xl border border-gray-800">
+                    <label class="cursor-pointer text-center">
+                        <input type="radio" name="postType" value="khen" checked class="sr-only peer">
+                        <div class="py-2 rounded-lg text-sm font-black text-gray-500 peer-checked:bg-cyan-500/20 peer-checked:text-cyan-400 peer-checked:border peer-checked:border-cyan-500 transition-all">
+                            😇 KHEN NGỢI
+                        </div>
+                    </label>
+                    <label class="cursor-pointer text-center">
+                        <input type="radio" name="postType" value="phot" class="sr-only peer">
+                        <div class="py-2 rounded-lg text-sm font-black text-gray-500 peer-checked:bg-red-500/20 peer-checked:text-red-400 peer-checked:border peer-checked:border-red-500 transition-all">
+                            🔥 BÓC PHỐT
+                        </div>
+                    </label>
+                </div>
+
+                <div class="space-y-1 relative">
+                    <label class="text-xs text-gray-400 font-semibold">Tên học sinh mục tiêu:</label>
+                    <input type="text" id="targetStudentSearch" placeholder="Gõ tìm tên... (Ví dụ: Quốc An, Hải Phong)" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm text-gray-200 focus:outline-none focus:border-orange-500 transition-colors">
+                    <div id="searchSuggestions" class="absolute left-0 right-0 mt-1 bg-gray-800 border border-gray-700 rounded-xl max-h-48 overflow-y-auto hidden z-50 shadow-2xl"></div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="text-xs text-gray-400 font-semibold">Lớp học:</label>
+                    <input type="text" id="targetStudentClass" placeholder="Hệ thống tự điền lớp hoặc tự gõ..." class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm text-gray-200 focus:outline-none focus:border-orange-500">
+                </div>
+
+                <div class="space-y-1">
+                    <label class="text-xs text-gray-400 font-semibold">Nội dung tin đồn/khen ngợi:</label>
+                    <textarea id="studentComment" rows="4" placeholder="Nhập phốt căng đét hoặc lời khen uy tín tại đây..." class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm text-gray-200 focus:outline-none focus:border-orange-500 resize-none transition-colors"></textarea>
+                </div>
+
+                <button id="submitStudentBtn" class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg cursor-pointer">
+                    Đăng Tin Lên Bảng Vàng/Phốt
+                </button>
+            </section>
+
+            <section class="md:col-span-2 space-y-4">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-orange-400 flex items-center gap-2">📰 Bản Tin Học Đường THCS Tân Dân</h2>
+                    <div class="flex gap-2 text-xs">
+                        <span class="px-2 py-1 bg-cyan-950 text-cyan-400 rounded-md border border-cyan-900" id="totalKhenCount">Khen: 0</span>
+                        <span class="px-2 py-1 bg-red-950 text-red-400 rounded-md border border-red-900" id="totalPhotCount">Phốt: 0</span>
+                    </div>
+                </div>
+                <div id="studentReviewsContainer" class="space-y-4 max-h-[700px] overflow-y-auto pr-2"></div>
             </section>
         </main>
     </div>
 
     <script src="app.js"></script>
+<footer class="text-center py-8 mt-12 border-t border-gray-900 space-y-1">
+            <p class="text-xs text-gray-500 font-mono tracking-widest">
+                &copy; 2026 TÂN DÂN HUB. ALL RIGHTS RESERVED.
+            </p>
+            <p class="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 font-sans">
+                Coded with 🔥 by <span class="hover:text-white transition-colors cursor-pointer">PhiDuong</span>
+                Idea by <span class="hover:text-white transition-colors cursor-pointer">TrungKien, HaiPhong, DuyKhanh, HoangQuan </span>
+            </p>
+        </footer>
 </body>
 </html>
